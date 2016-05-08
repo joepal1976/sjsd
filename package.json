@@ -8,7 +8,7 @@
   "author": {
     "name": "Joel Palmius"
   },
-  "files": ["src","templates"]
+  "files": ["src","templates"],
   "bin" : "src/main",
   "homepage": "https://github.com/joepal1976/sjsd.git",
   "repository" : { 
