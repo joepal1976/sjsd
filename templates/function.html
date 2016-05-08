@@ -1,0 +1,34 @@
+<!-- function.html -->
+<html>
+  <head>
+    <title><%= item.qualifiedName %></title>
+    <link rel="stylesheet" type="text/css" href="sjsd.css" />
+  </head>
+  <body>
+  	<h1 class="pagetitle <%= item.type %>"><% if(item.memberof) {
+  	%><a href="<%= item.memberof %>.html"><%= item.memberof %>.</a><% } %><%= item.name %></h1>                
+    <p class="longdesc <%= item.type %>"><%= item.text %></p>
+
+	<% if(item.params && item.params.length) { %>
+	
+	<div class="sectionwrapper parameter">
+		<h2 class="sectiontitle parameter">Parameters</h2>
+	    <div class="items parameter">
+		    <% _.forEach(item.params,function(param) { %>
+		      <div class="item parameter">
+				<span class="itemlink parameter"><%= param.name %></span>
+				<div class="itemdesc parameter">(<%= param.type %>) <%= param.desc %></div>
+			  </div> 	      	     
+		    <% }); %>
+	    </div>	
+	</div>
+	
+	<% } %>
+	
+	<% if(templates.footer) { %>
+	  <%= templates.footer({ templates: templates, parser: parser, item: item }) %>
+	<% } %>
+		           
+  </body>
+</html>
+

@@ -1,0 +1,10 @@
+{
+  "files": [
+    "src/main.js",
+    "src/Parser.js",
+    "src/TemplateSet.js",
+    "src/Config.js"
+  ],
+  "outputdir": "docs"
+}
+

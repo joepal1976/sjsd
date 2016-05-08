@@ -1,0 +1,5 @@
+<!-- generic_item.html -->
+<div class="item <%= item.type %>">
+	<a class="itemlink <%= item.type %>" href="<%= item.qualifiedName %>.html"><%= item.name %><% if(item.paramsAsString) { %><%= item.paramsAsString %><% } %></a>
+	<div class="itemdesc <%= item.type %>"><%= item.shortDesc %></div>
+</div>	

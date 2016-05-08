@@ -1,0 +1,11 @@
+<!-- generic_section.html -->
+<% if(item && item.children && item.children.length && type && title) { %>
+<div class="sectionwrapper <%= type %>">
+	<h2 class="sectiontitle <%= type %>"><%= title %></h2>
+    <div class="items <%= type %>">
+	    <% _.forEach(item.children,function(item) { if(item.type === type) { %>
+	      <%= templates.generic_item({item : item, templates: templates, parser: parser }) %> 	      	     
+	    <% } }); %>
+    </div>	
+</div>
+<% } %>

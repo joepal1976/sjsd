@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="sjsd.css" />
+  </head>
+  <body>     
+    <% _.forEach(parser.parseTree.rootNodes,function(item) { %>
+    
+	  	<h1 class="pagetitle <%= item.type %>"><%= item.name %></h1>               
+	    <p class="longdesc <%= item.type %>"><%= item.text %></p>
+	
+		<% if(item.hasNamespaceChildren) { %>
+		  <%= templates.namespace_section({ templates: templates, item: item, parser: parser, type: "namespace", title: "Namespaces" }) %>
+		<% } %>
+	
+		<% if(item.hasModuleChildren) { %>
+		  <%= templates.module_section({ templates: templates, item: item, parser: parser, type: "module", title: "Modules" }) %>
+		<% } %>
+	
+		<% if(item.hasEntityChildren) { %>
+		  <%= templates.entity_section({ templates: templates, item: item, parser: parser, type: "entity", title: "Entities" }) %>
+		<% } %>
+	
+		<% if(item.hasFunctionChildren) { %>
+		  <%= templates.function_section({ templates: templates, item: item, parser: parser, type: "function", title: "Functions" }) %>
+		<% } %>
+	
+		<% if(item.hasPropertyChildren) { %>
+		  <%= templates.property_section({ templates: templates, item: item, parser: parser, type: "property", title: "Properties" }) %>
+		<% } %>
+          
+    <% }); %>
+  </body>
+</html>
+

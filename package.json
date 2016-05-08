@@ -1,0 +1,26 @@
+{
+  "name": "sjsd",
+  "version": "0.0.1",
+  "description": "Simplified JavaScript Docs is a code documentation generator sharing much of the syntax with JSDoc. It aims at providing maximum user control over the output at the cost of not attempting to deduce code structure automatically.",
+  "keywords": ["documentation","docs","jsdoc"],
+  "private": true,
+  "license": "MIT",
+  "author": {
+    "name": "Joel Palmius"
+  },
+  "files": ["src","templates"]
+  "bin" : "src/main",
+  "homepage": "https://github.com/joepal1976/sjsd.git",
+  "repository" : { 
+    "type" : "git",
+    "url" : "https://github.com/joepal1976/sjsd.git"
+  },
+  "dependencies": {
+    "underscore": "latest",
+    "string": "latest",
+    "command-line-args": "latest",
+    "file-exists": "latest",
+    "fs-extra" : "latest"
+  }
+}
+
