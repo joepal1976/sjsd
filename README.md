@@ -6,13 +6,13 @@ decide how to structure the documentation of the code.
 
 SJSD shares much of the syntax with JSDoc (but is not necessarily 100% compatible).
 
-Note that this project is currently in a beta phase and probably not fit for use in production.
+Note that this project is currently in an alpha stage and probably not fit for use in production.
 
 ## Documentation
 
 The documentation for SJSD is (obviously) generated with SJSD. It's available here: https://joepal1976.github.io/sjsd/docs/index.html
 
-At that location you can find instructions and examples.
+At that location you can find instructions and examples. (Well, at least when we've gotten as far as writing those)
 
 ## Q & A
 
