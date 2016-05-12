@@ -1,0 +1,131 @@
+body
+{
+	background-color: #ffffee;	
+}
+
+h1
+{
+	color: darkorange;
+	font-family: "sans-serif";	
+	display: block;
+	font-size: 2.5em;
+	border-bottom: 1px solid #cccccc;	
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+h2
+{
+	color: darkorange;
+	font-family: "sans-serif";	
+	display: block;
+	font-size: 1.5em;
+	border-bottom: 1px solid #cccccc;	
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+p
+{
+	-webkit-margin-before: 0.2em;
+	-webkit-margin-after: 0.2em;
+}
+
+div.items
+{
+	display: block;
+	padding: 0px;	
+	width: 100%;		
+}
+
+div.items > :nth-child(even)
+{
+	background-color: #eeeedd;
+}
+
+div.item
+{
+	display: block;
+	padding: 0px;	
+}
+
+a
+{
+	color: #aa4400;
+	text-decoration: none;
+}
+
+a:visited
+{
+	color: #aa4400;
+	text-decoration: none;
+}
+
+a:hover
+{
+	color: darkorange;
+	text-decoration: underline;
+}
+
+a.itemlink
+{
+	padding: 5px;
+	display: block;	
+	float: left;
+	width: 20em;
+	height: 1.5em;	
+	line-height: 1.5em;
+	font-family: "monospace";	
+}
+
+span.itemlink
+{
+	padding: 5px;
+	display: block;	
+	float: left;
+	width: 20em;
+	height: 1.5em;	
+	line-height: 1.5em;
+	font-family: "monospace";	
+}
+
+div.itemdesc
+{
+	padding: 5px;	
+	display: block;		
+	height: 1.5em;	
+	line-height: 1.5em;
+	white-space: nowrap;	
+}
+
+#footer
+{
+	margin-top: 50px;	
+	display: block;
+	width: 100%;
+	text-align: center;	
+	color: #cccccc;
+}
+
+#footer a
+{
+	color: #999999;
+}
+
+#footer a:hover
+{
+	color: #bbbbbb;
+	text-decoration: underline;
+}
+
+code
+{
+	display: block;
+	padding: 5px;
+	padding-left: 20px;
+	background-color: white;
+	white-space: pre;
+	border: 1px solid #cccccc;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
