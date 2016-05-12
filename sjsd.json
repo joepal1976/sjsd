@@ -1,6 +1,7 @@
 {
   "files": [
     "src/main.js",
+    "src/Config.js",
     "src/Parser.js",
     "src/TemplateSet.js",
     "src/Config.js"
