@@ -32,6 +32,3 @@ node_modules
 # Optional REPL history
 .node_repl_history
 
-# Ignore generated docs for now
-docs
-
