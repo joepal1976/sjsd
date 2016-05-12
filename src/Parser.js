@@ -9,15 +9,10 @@ var _ = require('underscore');
  * @class Parser
  * @memberof SJSD
  */
-var Parser = function()
+var Parser = function(config)
 {	
-	/**
-	 * Is debugging enabled or disabled? 
-	 * @property debug
-	 * @memberof SJSD.Parser
-	 */
-	this.debug = false;
-
+	this.config = config;
+	
 	this.rawSourceString = "";
 
 	this.namespaces = {};
@@ -31,21 +26,35 @@ var Parser = function()
 
 	this.parseTree = {};
 	
-	this.nodesByName = {};
+	this.nodesByName = {};		
 };
 
 /**
- * Enable or disable debugging
- * 
- * @function enableDebugging
- * @param debug boolean for deciding if debugging should be enabled.
- * @returns The Parser object the method was called on
+ * Write a debug message to the console if debug is enabled.
+ * @function debug
+ * @param message string What to write to the console
  * @memberof SJSD.Parser
  */
-Parser.prototype.enableDebugging = function(debug)
+Parser.prototype.debug = function(message)
 {
-	this.debug = debug;
-	return this;
+	if(this.config.debug)
+	{
+		console.log(message);
+	}
+};
+
+/**
+ * Write a debug message to the console if spam is enabled.
+ * @function spam
+ * @param message string What to write to the console
+ * @memberof SJSD.Parser
+ */
+Parser.prototype.spam = function(message)
+{
+	if(this.config.spam)
+	{
+		console.log(message);
+	}
 };
 
 /**
@@ -59,10 +68,7 @@ Parser.prototype.enableDebugging = function(debug)
  */
 Parser.prototype.addFile = function(fileName)
 {
-	if(this.debug)
-	{
-		console.log("Add file: " + fileName);
-	}
+	this.debug("Add file: " + fileName);
 
 	var contents = fs.readFileSync(fileName, 'utf8');
 
@@ -84,11 +90,8 @@ Parser.prototype.parseBlock = function(block)
 		console.log("ERROR: tried to parse null block");
 		process.exit(1);
 	}
-
-	if(this.debug)
-	{
-		console.log("About to parse a block with the following contents:\n\n" + block + "\n\n");
-	}
+	
+	this.spam("About to parse a block with the following contents:\n\n" + block + "\n\n");
 	
 	var whiteSpaceProtected = S(block).replaceAll("\n","\x01").s;
 	
@@ -121,7 +124,7 @@ Parser.prototype.parseBlock = function(block)
 	whiteSpaceProtected = whiteSpaceProtected.replace(/<pre>(.*?)<\/pre>/g,preReplacer);
 	whiteSpaceProtected = S(whiteSpaceProtected).replaceAll("\x01","\n").s;
 
-	//console.log(whiteSpaceProtected);
+	this.spam("Block after white space protection:\n\n" + whiteSpaceProtected);
 	
 	var lines = whiteSpaceProtected.split("\n");
 
@@ -371,7 +374,7 @@ Parser.prototype.parseBlock = function(block)
 	parsedBlock.text = S(parsedBlock.text).replaceAll("\x02"," ").s;
 	parsedBlock.text = S(parsedBlock.text).replaceAll("\x03","\n").s;
 	
-	if(this.debug) { console.log(parsedBlock.text); }
+	this.spam("Text content of block:\n\n" + parsedBlock.text + "\n"); 
 
 	if(parsedBlock.memberof)
 	{
@@ -397,12 +400,9 @@ Parser.prototype.parseBlock = function(block)
 		}
 	}
 
-	if(this.debug)
-	{
-		console.log("Resulting parsed block:\n\n");
-		console.log(parsedBlock);
-		console.log("\n\n");
-	}
+	this.spam("Resulting parsed block:\n\n");
+	this.spam(parsedBlock);
+	this.spam("\n\n");
 
 	if(parsedBlock.name)
 	{
@@ -439,6 +439,8 @@ Parser.prototype.parseBlock = function(block)
 		{
 			this.properties[parsedBlock.qualifiedName] = parsedBlock;
 		}
+		
+		this.debug("Found a '" + parsedBlock.type + "' type block with the name '" + parsedBlock.name + "'");
 	}
 };
 
@@ -487,12 +489,9 @@ Parser.prototype.findParent = function(child)
 	
 	qn = qn.replace(/\.[\w]+$/,"");
 	
-	if(this.debug)
-	{
-		console.log("findParent()");
-		console.log("  -- child: " + child.qualifiedName);
-		console.log("  -- search: " + qn);
-	}
+	this.spam("findParent()");
+	this.spam("  -- child: " + child.qualifiedName);
+	this.spam("  -- search: " + qn);
 	
 	var parent = null;
 	
@@ -501,21 +500,16 @@ Parser.prototype.findParent = function(child)
 		parent = this.nodesByName[qn];
 	}
 	
-	if(this.debug && parent)
+	if(parent)
 	{
-		console.log("  -- parent existed");
+		this.spam("  -- parent existed");
 	}
 	
-	if(this.debug && !parent)
+	if(!parent)
 	{
-		console.log("  -- parent did not exist");
+		this.spam("  -- parent did not exist");
 	}
-	
-	if(this.debug)
-	{
-		console.log("");
-	}
-	
+		
 	return parent;
 };
 
@@ -567,12 +561,9 @@ Parser.prototype.createTreeOutline = function()
 		stack.properties.sort();
 	}
 
-	if(this.debug)
-	{
-		console.log("The full list of nodes to document is this:\n\n");
-		console.log(stack);
-		console.log("\n\n");
-	}
+	this.debug("The full list of nodes to document is this:\n\n");
+	this.debug(stack);
+	this.debug("\n\n");
 	
 	var self = this;
 	
@@ -580,11 +571,8 @@ Parser.prototype.createTreeOutline = function()
 	 
 	_.forEach(types,function(type)
 	{
-		_.forEach(self[type],function(node) {			
-			if(self.debug)
-			{
-				console.log("Appending " + node.qualifiedName + " (" + node.type + ") to list of known nodes.");
-			}
+		_.forEach(self[type],function(node) {						
+			self.debug("Appending " + node.qualifiedName + " (" + node.type + ") to list of known nodes.");			
 			self.nodesByName[node.qualifiedName] = node;
 		});
 	});
@@ -657,13 +645,18 @@ Parser.prototype.createTreeOutline = function()
 
 	this.parseTree.withoutParents = stack;		
 
-	if(this.debug)
-	{
-		console.log("Resulting parse tree:\n");
-		console.log(JSON.stringify(this.parseTree,null,2));
-	}
+	this.spam("Resulting parse tree:\n");
+	this.spam(JSON.stringify(this.parseTree,null,2));
+
 };
 
+/**
+ * Extract short descriptions for all blocks that didn't set them explicitly.
+ * The principle is that everything before the first dot end up as short description 
+ * if shortdesc was empty at this point.
+ * @function fixShortDesc
+ * @memberof SJSD.Parser
+ */
 Parser.prototype.fixShortDesc = function()
 {
 	var self = this;
@@ -686,6 +679,11 @@ Parser.prototype.fixShortDesc = function()
 	});	
 };
 
+/**
+ * Go through all blocks of the function type and construct lists of function params.
+ * @function fixParams
+ * @memberof SJSD.Parser
+ */
 Parser.prototype.fixParams = function()
 {
 	var pas;
@@ -744,6 +742,11 @@ Parser.prototype.fixParams = function()
 	});
 };
 
+/**
+ * Find what block type we should start at when building the parse tree.
+ * @function findTopLevel
+ * @memberof SJSD.Parser
+ */
 Parser.prototype.findTopLevel = function()
 {
 	if(this.classes && this.classes.length)
@@ -762,12 +765,15 @@ Parser.prototype.findTopLevel = function()
 	}
 };
 
+/**
+ * Starting point for building the parse tree from the source string.
+ * @function parseData
+ * @memberof SJSD.Parser
+ */
 Parser.prototype.parseData = function()
-{
-	if(this.debug)
-	{
-		console.log("About to start parsing. Full source string as follows:\n\n" + this.rawSourceString + "\n\n");
-	}
+{	
+	this.debug("Source files have been merged. About to start parsing.\n");
+	this.spam("Full source string as follows:\n\n" + this.rawSourceString + "\n\n");	
 
 	var search = /\/\*\*([\s\S]+?)\*\//g;
 	var match = search.exec(this.rawSourceString);
