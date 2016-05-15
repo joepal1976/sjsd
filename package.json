@@ -1,9 +1,9 @@
 {
   "name": "sjsd",
   "version": "0.0.1",
-  "description": "Simplified JavaScript Docs is a code documentation generator sharing much of the syntax with JSDoc. It aims at providing maximum user control over the output at the cost of not attempting to deduce code structure automatically.",
+  "description": "Simplified JavaScript Documentation, is a tool for generating code documentation from inline source code comments. Contrary to other similar tools, it does not attempt to make a source code analysis. It instead leaves to the user to decide how to structure the documentation of the code. ",
   "keywords": ["documentation","docs","jsdoc"],
-  "private": true,
+  "private": false,
   "license": "MIT",
   "author": {
     "name": "Joel Palmius"
