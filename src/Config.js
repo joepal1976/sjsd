@@ -57,7 +57,7 @@ var defaultOptions =
 		 * @property outputdir
 		 * @memberof SJSD.Config.Options
 		 */
-		outputdir : ".",
+		outputdir : null,
 		
 		/**
 		 * The path to the dir where templates are found. This defaults to the internal "default" template set.
@@ -91,6 +91,11 @@ var Config = function()
 		this.options = defaultOptions; 				
 	}
 		
+	if(options.outputdir)
+	{
+		this.options.outputdir = options.outputdir;
+	}
+	
 	if(options.debug)
 	{
 		this.options.debug = true;
@@ -100,14 +105,14 @@ var Config = function()
 		this.options.debug = false;
 	}		
 
-	if(options.trace)
+	if(options.spam)
 	{
 		this.options.debug = true;
-		this.options.trace = true;
+		this.options.spam = true;
 	}
 	else
 	{
-		this.options.trace = false;
+		this.options.spam = false;
 	}		
 
 	this.fillFiles(options);	
